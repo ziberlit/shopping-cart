@@ -1,0 +1,33 @@
+// Import all of Bootstrap's CSS
+@import 'bootstrap/scss/bootstrap';
+
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+}
+
+.products {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.product {
+  border: 1px solid #ddd;
+  padding: 10px;
+  width: 150px;
+}
+
+button {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+#cart-list {
+  list-style: none;
+  padding: 0;
+}

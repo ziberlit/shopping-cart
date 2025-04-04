@@ -7,7 +7,50 @@
     <title>Shopping cart</title>
   </head>
   <body>
-    <div>Shopping cart</div>
+    <body class="container py-4">
+      <h1 class="mb-4 text-center">Shopping Cart</h1>
+    
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Your Cart</h3>
+          <ul id="cart-list" class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between align-items-center'">
+              <div>
+                Product 1 - $10 ×
+                <button class="btn btn-sm btn-outline-secondary me-1 quantity-btn">-</button>
+                <span>2</span>
+                <button class="btn btn-sm btn-outline-secondary ms-1 quantity-btn">+</button>
+              </div>
+              <button class="btn btn-sm btn-danger remove-btn">Remove</button>
+            </li>
+          </ul>
+          <h5>Total: $<span id="total">20</span></h5>
+          <h5>Shipping: $<span id="total">10</span></h5>
+        </div>
+        
+        <div class="col-md-6">
+          <h3>Products</h3>
+          <div id="product-list" class="row row-cols-1 g-3">
+            <!-- Products will go here -->
+            <div class="col">
+              <div class="card p-3">
+                <h5 class="card-title">Product 1</h5>
+                <p class="card-text">Price: $10</p>
+                <button class="btn btn-primary add-to-cart" data-name="Product 1" data-price="10">Add to Cart</button>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card p-3">
+                <h5 class="card-title">Product 2</h5>
+                <p class="card-text">Price: $20</p>
+                <button class="btn btn-primary add-to-cart" data-name="Product 2" data-price="20">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        
+      </div>
     <script type="module" src="/src/js/main.js"></script>
   </body>
 </html>

@@ -1,1 +1,2 @@
-import '../css/style.css';
+// Import our custom CSS
+import '../scss/styles.scss';

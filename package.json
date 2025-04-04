@@ -11,9 +11,12 @@
     "lint": "eslint \"src/**/*.js\""
   },
   "devDependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.4",
     "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.1.1",
     "prettier": "^3.5.3",
+    "sass": "^1.86.3",
     "vite": "^6.2.0"
   }
 }
