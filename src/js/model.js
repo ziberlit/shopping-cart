@@ -28,3 +28,19 @@ export const loadProducts = async function (query) {
 
   console.log(state.products);
 };
+
+export const addItemToCart = id => {
+  const itemIndex = state.cart.items.findIndex(it => it.id === id);
+
+  if (itemIndex !== -1) {
+    // Item exists, increase the quantity
+    state.cart.items[itemIndex].quantity++;
+  } else {
+    // Item doesn't exist, add it to the cart
+    const item = state.products.find(it => it.id === id);
+    if (item) {
+      const { id, title, price, image } = item;
+      state.cart.items.push({ id, title, price, image, quantity: 1 });
+    }
+  }
+};

@@ -21,7 +21,14 @@ const controlCart = async function () {
   }
 };
 
+const controlAddToCart = function (itemToAdd) {
+  model.addItemToCart(itemToAdd);
+  console.log(itemToAdd);
+  cartView.render(model.state.cart.items);
+};
+
 export default function init() {
   productsView.addHandlerRender(controlProducts);
+  productsView.addHandlerClick(controlAddToCart);
   cartView.addHandlerRender(controlCart);
 }
