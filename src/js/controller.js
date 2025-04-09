@@ -1,5 +1,6 @@
 import * as model from './model';
 import productsView from './views/productsView';
+import cartView from './views/cartView';
 
 const controlProducts = async function () {
   try {
@@ -11,6 +12,16 @@ const controlProducts = async function () {
   }
 };
 
+const controlCart = async function () {
+  try {
+    cartView.render(model.state.cart.items);
+  } catch (err) {
+    cartView.renderError();
+    console.log(err);
+  }
+};
+
 export default function init() {
   productsView.addHandlerRender(controlProducts);
+  cartView.addHandlerRender(controlCart);
 }
