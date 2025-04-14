@@ -12,7 +12,7 @@ const controlProducts = async function () {
   }
 };
 
-const controlCart = async function () {
+const controlDisplayCart = function () {
   try {
     cartView.render(model.state.cart.items);
   } catch (err) {
@@ -30,5 +30,5 @@ const controlAddToCart = function (itemToAdd) {
 export default function init() {
   productsView.addHandlerRender(controlProducts);
   productsView.addHandlerClick(controlAddToCart);
-  cartView.addHandlerRender(controlCart);
+  cartView.addHandlerRender(controlDisplayCart);
 }
