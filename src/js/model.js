@@ -1,4 +1,4 @@
-import { API_URL } from './config';
+import { API_URL, SHIPPING_THRESHOLD } from './config';
 import { getJSON } from './helpers';
 
 export const state = {
@@ -11,9 +11,14 @@ export const state = {
         price: 22.3,
         image:
           'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg',
-        quantity: 3,
+        quantity: 1,
       },
     ],
+    paymentDetails: {
+      totalItems: 22.3,
+      shipping: 10,
+    },
+    productsInCart: 1,
   },
 };
 
@@ -29,18 +34,22 @@ export const loadProducts = async function (query) {
   console.log(state.products);
 };
 
-export const addItemToCart = id => {
-  const itemIndex = state.cart.items.findIndex(it => it.id === id);
+export const addItemToCart = itemId => {
+  let itemIndex = state.cart.items.findIndex(it => it.id === itemId);
 
   if (itemIndex !== -1) {
-    // Item exists, increase the quantity
+    // Item is already in the cart, increase the quantity
     state.cart.items[itemIndex].quantity++;
   } else {
-    // Item doesn't exist, add it to the cart
-    const item = state.products.find(it => it.id === id);
-    if (item) {
-      const { id, title, price, image } = item;
-      state.cart.items.push({ id, title, price, image, quantity: 1 });
-    }
+    // Item is not in the cart, add it to the cart
+    const item = state.products.find(it => it.id === itemId);
+    const { id, title, price, image } = item;
+    itemIndex =
+      state.cart.items.push({ id, title, price, image, quantity: 1 }) - 1;
+  }
+  state.cart.productsInCart++;
+  state.cart.paymentDetails.totalItems += state.cart.items[itemIndex].price;
+  if (state.cart.productsInCart > SHIPPING_THRESHOLD) {
+    state.cart.paymentDetails.shipping += 10;
   }
 };

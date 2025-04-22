@@ -1,3 +1,4 @@
+import Fraction from 'fraction.js';
 import View from './View';
 import { ERR_MSG } from '../config';
 
@@ -7,7 +8,20 @@ class ProductsView extends View {
   }
 
   generateMarkup(data) {
-    return data.map(it => this.#generateMarkupItem(it)).join('');
+    return this.#generateMarkupItems(data.items).concat(
+      this.#generateMarkupPaymentDetails(data.paymentDetails),
+    );
+  }
+
+  #generateMarkupItems(items) {
+    return items.map(it => this.#generateMarkupItem(it)).join('');
+  }
+
+  #generateMarkupPaymentDetails(paymentDetails) {
+    return `
+    <h5>Items Total: $<span id="items-total-price">${new Fraction(paymentDetails.totalItems)}</span></h5>
+    <h5>Shipping: $<span id="shipping-price">${new Fraction(paymentDetails.shipping)}</span></h5>
+    `;
   }
 
   #generateMarkupItem(item) {

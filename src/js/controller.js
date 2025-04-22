@@ -14,7 +14,7 @@ const controlProducts = async function () {
 
 const controlDisplayCart = function () {
   try {
-    cartView.render(model.state.cart.items);
+    cartView.render(model.state.cart);
   } catch (err) {
     cartView.renderError();
     console.log(err);
@@ -24,7 +24,7 @@ const controlDisplayCart = function () {
 const controlAddToCart = function (itemToAdd) {
   model.addItemToCart(itemToAdd);
   console.log(itemToAdd);
-  cartView.render(model.state.cart.items);
+  cartView.render(model.state.cart);
 };
 
 export default function init() {
