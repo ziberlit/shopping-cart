@@ -8,7 +8,6 @@ const controlProducts = async function () {
     productsView.render(model.state.products);
   } catch (err) {
     productsView.renderError();
-    console.log(err);
   }
 };
 
@@ -17,18 +16,16 @@ const controlDisplayCart = function () {
     cartView.render(model.state.cart);
   } catch (err) {
     cartView.renderError();
-    console.log(err);
   }
 };
 
 const controlAddToCart = function (itemToAdd) {
   model.addItemToCart(itemToAdd);
-  console.log(itemToAdd);
   cartView.render(model.state.cart);
 };
 
 export default function init() {
   productsView.addHandlerRender(controlProducts);
-  productsView.addHandlerClick(controlAddToCart);
   cartView.addHandlerRender(controlDisplayCart);
+  cartView.addHandlerAddToCart(controlAddToCart);
 }

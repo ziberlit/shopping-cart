@@ -30,8 +30,6 @@ export const loadProducts = async function (query) {
     price: prod.price,
     image: prod.image,
   }));
-
-  console.log(state.products);
 };
 
 export const addItemToCart = itemId => {

@@ -7,6 +7,17 @@ class ProductsView extends View {
     ['load'].forEach(ev => window.addEventListener(ev, handler));
   }
 
+  addHandlerAddToCart(handler) {
+    document
+      .querySelector('#product-list')
+      .addEventListener('click', function (e) {
+        const btn = e.target.closest('.add-to-cart');
+        if (!btn) return;
+
+        handler(+btn.dataset.itemToAdd);
+      });
+  }
+
   generateMarkup(data) {
     return this.#generateMarkupItems(data.items).concat(
       this.#generateMarkupPaymentDetails(data.paymentDetails),
