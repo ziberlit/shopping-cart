@@ -24,8 +24,15 @@ const controlAddToCart = function (itemToAdd) {
   cartView.render(model.state.cart);
 };
 
+const controlDecreaseItemQuantity = function (itemToDecrease) {
+  model.decreaseItemQuantity(itemToDecrease);
+  cartView.render(model.state.cart);
+};
+
 export default function init() {
   productsView.addHandlerRender(controlProducts);
   cartView.addHandlerRender(controlDisplayCart);
   cartView.addHandlerAddToCart(controlAddToCart);
+  cartView.addHandlerIncreaseItemQuantity(controlAddToCart);
+  cartView.addHandlerDecreaseItemQuantity(controlDecreaseItemQuantity);
 }

@@ -18,6 +18,28 @@ class ProductsView extends View {
       });
   }
 
+  addHandlerIncreaseItemQuantity(handler) {
+    document
+      .querySelector('#cart-list')
+      .addEventListener('click', function (e) {
+        const btn = e.target.closest('.quantity-btn-increase');
+        if (!btn) return;
+
+        handler(+btn.dataset.itemToAdd);
+      });
+  }
+
+  addHandlerDecreaseItemQuantity(handler) {
+    document
+      .querySelector('#cart-list')
+      .addEventListener('click', function (e) {
+        const btn = e.target.closest('.quantity-btn-decrease');
+        if (!btn) return;
+
+        handler(+btn.dataset.itemToDecrease);
+      });
+  }
+
   generateMarkup(data) {
     return this.#generateMarkupItems(data.items).concat(
       this.#generateMarkupPaymentDetails(data.paymentDetails),
@@ -31,7 +53,7 @@ class ProductsView extends View {
   #generateMarkupPaymentDetails(paymentDetails) {
     return `
     <h5>Items Total: $<span id="items-total-price">${new Fraction(paymentDetails.totalItems)}</span></h5>
-    <h5>Shipping: $<span id="shipping-price">${new Fraction(paymentDetails.shipping)}</span></h5>
+    <h5>Shipping: <span id="shipping-price">${paymentDetails.shipping ? '$' + new Fraction(paymentDetails.shipping) : 'FREE'}</span></h5>
     `;
   }
 
@@ -41,9 +63,9 @@ class ProductsView extends View {
       <div>
         <img src="${item.image}" alt=${item.title} width="50" height="50" />
         ${item.title} - $${item.price} ×
-        <button class="btn btn-sm btn-outline-secondary me-1 quantity-btn">-</button>
+        <button class="btn btn-sm btn-outline-secondary me-1 quantity-btn quantity-btn-decrease" data-item-to-decrease=${item.id}>-</button>
         <span>${item.quantity}</span>
-        <button class="btn btn-sm btn-outline-secondary ms-1 quantity-btn">+</button>
+        <button class="btn btn-sm btn-outline-secondary ms-1 quantity-btn quantity-btn-increase" data-item-to-add=${item.id} >+</button>
       </div>
       <button class="btn btn-sm btn-danger remove-btn">Remove</button>
     </li>

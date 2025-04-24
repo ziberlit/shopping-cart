@@ -1,4 +1,4 @@
-import { API_URL, SHIPPING_THRESHOLD } from './config';
+import { API_URL, MAX_SHIPPING, SHIPPING_THRESHOLD } from './config';
 import { getJSON } from './helpers';
 
 export const state = {
@@ -16,7 +16,7 @@ export const state = {
     ],
     paymentDetails: {
       totalItems: 22.3,
-      shipping: 10,
+      shipping: 0,
     },
     productsInCart: 1,
   },
@@ -47,7 +47,30 @@ export const addItemToCart = itemId => {
   }
   state.cart.productsInCart++;
   state.cart.paymentDetails.totalItems += state.cart.items[itemIndex].price;
-  if (state.cart.productsInCart > SHIPPING_THRESHOLD) {
+  if (
+    state.cart.productsInCart > SHIPPING_THRESHOLD &&
+    state.cart.paymentDetails.shipping < MAX_SHIPPING
+  ) {
     state.cart.paymentDetails.shipping += 10;
+  }
+};
+
+export const decreaseItemQuantity = itemId => {
+  const itemIndex = state.cart.items.findIndex(it => it.id === itemId);
+  if (itemIndex !== -1) {
+    // Item is in the cart, decrease the quantity
+    state.cart.items[itemIndex].quantity--;
+    state.cart.productsInCart--;
+    state.cart.paymentDetails.totalItems -= state.cart.items[itemIndex].price;
+    if (
+      state.cart.paymentDetails.shipping > 0 &&
+      state.cart.productsInCart <= SHIPPING_THRESHOLD
+    ) {
+      // If the number of products in the cart is less than the threshold, remove shipping cost
+      state.cart.paymentDetails.shipping -= 10;
+    }
+    if (state.cart.items[itemIndex].quantity === 0) {
+      state.cart.items.splice(itemIndex, 1);
+    }
   }
 };
