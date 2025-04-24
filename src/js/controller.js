@@ -24,6 +24,11 @@ const controlAddToCart = function (itemToAdd) {
   cartView.render(model.state.cart);
 };
 
+const controlRemoveItemFromCart = function (itemToRemove) {
+  model.removeItemFromCart(itemToRemove);
+  cartView.render(model.state.cart);
+};
+
 const controlDecreaseItemQuantity = function (itemToDecrease) {
   model.decreaseItemQuantity(itemToDecrease);
   cartView.render(model.state.cart);
@@ -33,6 +38,7 @@ export default function init() {
   productsView.addHandlerRender(controlProducts);
   cartView.addHandlerRender(controlDisplayCart);
   cartView.addHandlerAddToCart(controlAddToCart);
+  cartView.addHandlerRemoveItem(controlRemoveItemFromCart);
   cartView.addHandlerIncreaseItemQuantity(controlAddToCart);
   cartView.addHandlerDecreaseItemQuantity(controlDecreaseItemQuantity);
 }

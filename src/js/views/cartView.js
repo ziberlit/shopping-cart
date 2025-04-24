@@ -18,6 +18,17 @@ class ProductsView extends View {
       });
   }
 
+  addHandlerRemoveItem(handler) {
+    document
+      .querySelector('#cart-list')
+      .addEventListener('click', function (e) {
+        const btn = e.target.closest('.remove-btn');
+        if (!btn) return;
+
+        handler(+btn.dataset.itemToRemove);
+      });
+  }
+
   addHandlerIncreaseItemQuantity(handler) {
     document
       .querySelector('#cart-list')
@@ -67,7 +78,7 @@ class ProductsView extends View {
         <span>${item.quantity}</span>
         <button class="btn btn-sm btn-outline-secondary ms-1 quantity-btn quantity-btn-increase" data-item-to-add=${item.id} >+</button>
       </div>
-      <button class="btn btn-sm btn-danger remove-btn">Remove</button>
+      <button class="btn btn-sm btn-danger remove-btn" data-item-to-remove=${item.id}>Remove</button>
     </li>
     `;
   }

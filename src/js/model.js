@@ -55,6 +55,24 @@ export const addItemToCart = itemId => {
   }
 };
 
+export const removeItemFromCart = itemId => {
+  const itemIndex = state.cart.items.findIndex(it => it.id === itemId);
+  if (itemIndex !== -1) {
+    // Item is in the cart, remove it
+    state.cart.paymentDetails.totalItems -=
+      state.cart.items[itemIndex].price * state.cart.items[itemIndex].quantity;
+    state.cart.productsInCart -= state.cart.items[itemIndex].quantity;
+    if (
+      state.cart.paymentDetails.shipping > 0 &&
+      state.cart.productsInCart <= SHIPPING_THRESHOLD
+    ) {
+      // If the number of products in the cart is less than the threshold, remove shipping cost
+      state.cart.paymentDetails.shipping -= 10;
+    }
+    state.cart.items.splice(itemIndex, 1);
+  }
+};
+
 export const decreaseItemQuantity = itemId => {
   const itemIndex = state.cart.items.findIndex(it => it.id === itemId);
   if (itemIndex !== -1) {
