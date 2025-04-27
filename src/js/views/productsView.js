@@ -13,7 +13,7 @@ class ProductsView extends View {
   #generateMarkupProduct(product) {
     return `
     <div class="col">
-        <div class="card p-3">
+        <div class="card p-3 product">
             <h5 class="card-title">${product.title}</h5>
             <img src="${product.image}" alt=${product.title} />
             <p class="card-text">Price: $${product.price}</p>
