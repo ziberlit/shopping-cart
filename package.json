@@ -3,12 +3,17 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "description": "A simple shopping cart application",
+  "author": "Arye Leonid Ziberlit",
+  "license": "MIT",
+  "homepage": "https://ziberlit.github.io/shopping-cart/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.js\"",
-    "lint": "eslint \"src/**/*.js\""
+    "lint": "eslint \"src/**/*.js\"",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@popperjs/core": "^2.11.8",
@@ -16,6 +21,7 @@
     "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.1.1",
     "fraction.js": "^5.2.2",
+    "gh-pages": "^6.3.0",
     "prettier": "^3.5.3",
     "sass": "^1.86.3",
     "vite": "^6.2.0"
