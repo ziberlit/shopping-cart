@@ -3,23 +3,6 @@ import { getJSON } from './helpers';
 
 export const state = {
   products: [],
-  cart: {
-    items: [
-      {
-        id: 2,
-        title: 'Mens Casual Premium Slim Fit T-Shirts ',
-        price: 22.3,
-        image:
-          'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg',
-        quantity: 1,
-      },
-    ],
-    paymentDetails: {
-      totalItems: 22.3,
-      shipping: 0,
-    },
-    productsInCart: 1,
-  },
 };
 
 export const loadProducts = async function (query) {
@@ -30,6 +13,22 @@ export const loadProducts = async function (query) {
     price: prod.price,
     image: prod.image,
   }));
+};
+
+export const loadCart = function () {
+  state.cart = JSON.parse(localStorage.getItem('cart')) || {
+    items: [],
+    paymentDetails: {
+      totalItems: 0,
+      shipping: 0,
+    },
+    productsInCart: 0,
+  };
+};
+
+export const storeCart = function () {
+  // Store the cart in local storage
+  localStorage.setItem('cart', JSON.stringify(state.cart));
 };
 
 export const addItemToCart = itemId => {
@@ -53,6 +52,8 @@ export const addItemToCart = itemId => {
   ) {
     state.cart.paymentDetails.shipping += 10;
   }
+
+  storeCart();
 };
 
 export const removeItemFromCart = itemId => {
@@ -71,6 +72,8 @@ export const removeItemFromCart = itemId => {
     }
     state.cart.items.splice(itemIndex, 1);
   }
+
+  storeCart();
 };
 
 export const decreaseItemQuantity = itemId => {
@@ -91,4 +94,6 @@ export const decreaseItemQuantity = itemId => {
       state.cart.items.splice(itemIndex, 1);
     }
   }
+
+  storeCart();
 };

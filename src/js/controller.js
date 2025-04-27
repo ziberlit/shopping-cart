@@ -13,6 +13,7 @@ const controlProducts = async function () {
 
 const controlDisplayCart = function () {
   try {
+    model.loadCart();
     cartView.render(model.state.cart);
   } catch (err) {
     cartView.renderError();
